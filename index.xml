@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>[ Y k N x ]</title>
+    <link>http://yknx4.github.io/</link>
+    <description>Recent content on [ Y k N x ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 06 Mar 2016 17:34:05 -0600</lastBuildDate>
+    <atom:link href="http://yknx4.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>about</title>
+      <link>http://yknx4.github.io/about/</link>
+      <pubDate>Sun, 06 Mar 2016 17:34:05 -0600</pubDate>
+      
+      <guid>http://yknx4.github.io/about/</guid>
+      <description>
+
+&lt;h1 id=&#34;personal-background:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Personal Background&lt;/h1&gt;
+
+&lt;h3 id=&#34;about-myself:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;About myself&lt;/h3&gt;
+
+&lt;p&gt;I love to read everything about tech, and I try to hack every
+single gadget in my hands.&lt;/p&gt;
+
+&lt;p&gt;Currently i have a router with
+tomato-wrt working as my personal server, and customized
+roms on my Android devices,I also enjoy the music, and have played guitar for 10 years, but
+mostly as a casual hobby and not as a professional guitarist.&lt;/p&gt;
+
+&lt;h3 id=&#34;language-learning:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Language Learning&lt;/h3&gt;
+
+&lt;p&gt;I love languages, i really like to learn languages, as now I can handle these:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Spanish&lt;/strong&gt;: [I&amp;rsquo;m Mexican so&amp;hellip;.]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;English&lt;/strong&gt;: [Good enough for living and working - Cambride FCE B2]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Korean&lt;/strong&gt;: [Been learning for 2 years, I have a basic level]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Japanese&lt;/strong&gt;: [This is the half of my first year, so I suck pretty much :P]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;professional-background:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Professional Background&lt;/h1&gt;
+
+&lt;h3 id=&#34;development:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Development&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Software Engineer&lt;/strong&gt; student with strong Development Abilities.&lt;/p&gt;
+
+&lt;p&gt;I am deeply interested on mobile development for &lt;strong&gt;Android&lt;/strong&gt;,
+Desktop Applications on &lt;strong&gt;.NET&lt;/strong&gt;, and web development,
+especially in newer and promising technologies like &lt;strong&gt;Nodejs&lt;/strong&gt;,
+&lt;strong&gt;MongoDB&lt;/strong&gt;, &lt;strong&gt;Ruby/Rails&lt;/strong&gt;, etc…&lt;/p&gt;
+
+&lt;p&gt;I have been playing with programming since Secondary
+School, and have tried multiple languages and platforms. So
+far liking Javascript/Node.js, C#/.NET and Java/Android the
+most.&lt;/p&gt;
+
+&lt;h3 id=&#34;enviroment:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Enviroment&lt;/h3&gt;
+
+&lt;p&gt;I mostly work on &lt;strong&gt;Windows&lt;/strong&gt; and recently &lt;strong&gt;OSX&lt;/strong&gt; but I can move freely on &lt;strong&gt;Linux&lt;/strong&gt; based
+environments.&lt;/p&gt;
+
+&lt;p&gt;Brackets for NodeJS and web development.&lt;/p&gt;
+
+&lt;p&gt;MacDown for Markdown.&lt;/p&gt;
+
+&lt;p&gt;Android Studio well&amp;hellip;. for Android.&lt;/p&gt;
+
+&lt;p&gt;Visual Studio for .NET.&lt;/p&gt;
+
+&lt;p&gt;RubyMine for Ruby (At least until I have my Student License ㅠㅠ).&lt;/p&gt;
+
+&lt;p&gt;Atom and SublimeText are my backups when something else fails.&lt;/p&gt;
+
+&lt;h3 id=&#34;experience:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Experience&lt;/h3&gt;
+
+&lt;h5 id=&#34;magmalabs-intern-2016-now:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;MagmaLabs - Intern (2016 - now)&lt;/h5&gt;
+
+&lt;h5 id=&#34;school-projects-university-of-colima-2012-2015:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;School Projects - University of Colima (2012 - 2015)&lt;/h5&gt;
+
+&lt;p&gt;Even though most school projects sucks, and we all know it, I did multiple
+school projects in which I  have practiced all my learnt
+knowledge. Some of them are available on my GitHub repo.&lt;/p&gt;
+
+&lt;h4 id=&#34;information-retrieval-engine-school-project-university-of-korea-march-2016-june-2016:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Information Retrieval Engine (School Project) - University of Korea (March 2016 - June 2016)&lt;/h4&gt;
+
+&lt;p&gt;I had plenty of fun with this project, it was the first time i had
+to work with proper Math models.&lt;/p&gt;
+
+&lt;p&gt;I had to program a Information
+Retrieval engine for web documents that calculates similarity
+based on a query and displays relevant documents (an
+archaic search engine), I did the processing in .NET and
+showed the results in a web page made on Express.js/Node.js
+with all the information stored in MySQL.&lt;/p&gt;
+
+&lt;h1 id=&#34;education-background:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Education Background&lt;/h1&gt;
+
+&lt;h4 id=&#34;8th-semester-of-bachelor-degree-in-software-engineering-university-of-colima-2012-now:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;8th semester of Bachelor Degree in Software Engineering, University of Colima (2012- Now)&lt;/h4&gt;
+
+&lt;h4 id=&#34;exchange-student-program-university-of-korea-spring-semester-2015:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Exchange Student Program, University of Korea (Spring semester, 2015)&lt;/h4&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
