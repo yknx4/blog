@@ -20,8 +20,8 @@ body {
 }
 
 .fb-like{
-  height: 20px;
   overflow: hidden;
+  background: white;
 }
 
 .spacer {  margin-top: 20px; }
