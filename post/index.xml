@@ -6,18 +6,36 @@
     <description>Recent content in Posts on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Mar 2016 09:19:28 -0600</lastBuildDate>
     <atom:link href="//yknx4.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Creating a new theme</title>
-      <link>//yknx4.github.io/blog/article/creating-a-new-theme/</link>
-      <pubDate>Wed, 16 Dec 2015 00:00:00 +0000</pubDate>
+      <title>hello world!</title>
+      <link>//yknx4.github.io/blog/article/hello-world/</link>
+      <pubDate>Tue, 08 Mar 2016 09:19:28 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/creating-a-new-theme/</guid>
+      <guid>//yknx4.github.io/blog/article/hello-world/</guid>
       <description>
 
-&lt;h1 id=&#34;prueba:b128b7694e4de962e0088bcb1bcb254f&#34;&gt;prueba&lt;/h1&gt;
+&lt;h3 id=&#34;about-this-blog:6f2f4d58d486b2f9d96fea371fa23b59&#34;&gt;About this blog&lt;/h3&gt;
+
+&lt;p&gt;So this is the first post, and as every programmer&amp;rsquo;s first time. It has to start with a Hello World!&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m not a professional blogger nor a writer nor a native english speaker. Expect some idle days, expect some &lt;em&gt;unproffesional&lt;/em&gt; posts, and expect lots and lots of silly english mistakes.&lt;/p&gt;
+
+&lt;h3 id=&#34;who-am-i:6f2f4d58d486b2f9d96fea371fa23b59&#34;&gt;Who am i?&lt;/h3&gt;
+
+&lt;p&gt;Look the &lt;a href=&#34;//yknx4.github.io/blog/about/&#34;&gt;about&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-this-and-what-this-is-not-about:6f2f4d58d486b2f9d96fea371fa23b59&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
+
+&lt;p&gt;This may become a technology blog, this will include for sure some development posts. But after all, this is a Personal blog.&lt;/p&gt;
+
+&lt;p&gt;So I may post about my life, my ideas, my opinions, my personal thoughts and my controverted stance on some already controverted topics.&lt;/p&gt;
+
+&lt;p&gt;Feel free to comment everything (as soon as i enable comments), I&amp;rsquo;m open to hear other&amp;rsquo;s opinion.&lt;/p&gt;
+
+&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;
 </description>
     </item>
     
