@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>[ Y k N x ]</title>
-    <link>/</link>
+    <link>blog/</link>
     <description>Recent content on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 06 Mar 2016 17:34:05 -0600</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>about</title>
-      <link>/about/</link>
+      <link>/blog/about/</link>
       <pubDate>Sun, 06 Mar 2016 17:34:05 -0600</pubDate>
       
-      <guid>/about/</guid>
+      <guid>/blog/about/</guid>
       <description>
 
 &lt;h1 id=&#34;personal-background:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Personal Background&lt;/h1&gt;
@@ -133,10 +133,10 @@ with all the information stored in MySQL.&lt;/p&gt;
     
     <item>
       <title>Creating a new theme</title>
-      <link>/article/creating-a-new-theme/</link>
+      <link>/blog/article/creating-a-new-theme/</link>
       <pubDate>Wed, 16 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>/article/creating-a-new-theme/</guid>
+      <guid>/blog/article/creating-a-new-theme/</guid>
       <description>
 
 &lt;h1 id=&#34;prueba:b128b7694e4de962e0088bcb1bcb254f&#34;&gt;prueba&lt;/h1&gt;
