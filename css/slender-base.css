@@ -128,6 +128,7 @@ img {
 /* Articles */
 
 #article-listing,
+.article-taxonomy,
 .article-content {
     margin: 88px auto;
     max-width: 768px;
@@ -154,8 +155,8 @@ article {
 }
 
 .article-info a {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
+  text-decoration: none !important; /* no underline */
+  color: #7e7e7e !important;
 }
 
 .article-summary {
