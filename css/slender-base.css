@@ -153,6 +153,11 @@ article {
     margin-top: -20px;
 }
 
+.article-info a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 .article-summary {
     margin-top: 22px;
     font-size: 18px;
