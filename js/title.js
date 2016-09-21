@@ -4,7 +4,7 @@
   if(fiftyfifty){
     var brandElement = document.getElementsByClassName('brand')[0];
 
-    oldHtml = brandElement.innerHtml;
+    oldHtml = brandElement.innerHTML;
     newHtml = oldHtml.replace('Y k', 'A l e');
     brandElement.innerHtml = newHtml;
 
