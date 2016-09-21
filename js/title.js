@@ -6,7 +6,7 @@
 
     oldHtml = brandElement.innerHTML;
     newHtml = oldHtml.replace('Y k', 'A l e');
-    brandElement.innerHtml = newHtml;
+    brandElement.innerHTML = newHtml;
 
   }
 }());
