@@ -5,7 +5,7 @@
     var brandElement = document.getElementsByClassName('brand')[0];
 
     oldHtml = brandElement.innerHtml;
-    newHtml = olHtml.replace('Y k', 'A l e');
+    newHtml = oldHtml.replace('Y k', 'A l e');
     brandElement.innerHtml = newHtml;
 
   }
