@@ -7,6 +7,7 @@
     brandElement.onload = function() {
       oldHtml = brandElement.innerHtml;
       newHtml = olHtml.replace('Y k', 'A l e');
+      brandElement.innerHtml = newHtml;
     }
 
   }
