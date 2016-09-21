@@ -61,6 +61,12 @@ header {
     height: 350px;
 }
 
+@media (max-width: 400px) {
+  .header {
+    height: 60%;
+  }
+}
+
 h1.brand {
     font-family: "Fjalla One", Helvetica, sans-serif;
     font-size: 68px;
