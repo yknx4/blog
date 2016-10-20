@@ -6,10 +6,10 @@
  *
  *****************************************************************************/
 
-@import url(https://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i|Roboto+Condensed:400,400i,700,700i&amp;subset=latin-ext);
 
 body {
-    font-family: "Open Sans", Helvetica, sans-serif;
+    font-family: "PT Sans", Helvetica, sans-serif;
     height: 100%;
     margin: 0;
 }
@@ -68,7 +68,7 @@ header {
 }
 
 h1.brand {
-    font-family: "Fjalla One", Helvetica, sans-serif;
+    font-family: "Roboto Condensed", Helvetica, sans-serif;
     font-size: 68px;
     /*text-transform: uppercase;*/
     letter-spacing: 6px;
@@ -80,7 +80,7 @@ h1 small{
 }
 
 h1.title {
-    font-family: "Fjalla One", Helvetica, sans-serif;
+    font-family: "Roboto Condensed", Helvetica, sans-serif;
     font-size: 48px;
     /*text-transform: uppercase;*/
     letter-spacing: 3px;
@@ -190,7 +190,6 @@ article {
 
 .article-content {
     font-size: 18px;
-    font-family: Helvetica, sans-serif;
     line-height: 28px;
 }
 
