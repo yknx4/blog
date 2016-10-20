@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Me on [ Y k N x ]</title>
-    <link>//yknx4.github.io/blog/tags/me/</link>
-    <description>Recent content in Me on [ Y k N x ]</description>
+    <title>[ Y k N x ]</title>
+    <link>//yknx4.github.io/blog/tags/me/index.xml</link>
+    <description>Recent content on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 08 Mar 2016 09:19:28 -0600</lastBuildDate>
     <atom:link href="//yknx4.github.io/blog/tags/me/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -15,9 +14,7 @@
       <pubDate>Tue, 08 Mar 2016 09:19:28 -0600</pubDate>
       
       <guid>//yknx4.github.io/blog/article/hello-world/</guid>
-      <description>
-
-&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
+      <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
 
 &lt;p&gt;So this is the first post, and as every programmer&amp;rsquo;s first time. It has to start with a Hello World!&lt;/p&gt;
 
@@ -29,14 +26,15 @@
 
 &lt;h3 id=&#34;what-is-this-and-what-this-is-not-about&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;p&gt;This may become a technology blog, this will include for sure some development posts. But after all, this is a Personal blog.&lt;/p&gt;
 
 &lt;p&gt;So I may post about my life, my ideas, my opinions, my personal thoughts and my controverted stance on some already controverted topics.&lt;/p&gt;
 
 &lt;p&gt;Feel free to comment everything (as soon as i enable comments), I&amp;rsquo;m open to hear other&amp;rsquo;s opinion.&lt;/p&gt;
 
-&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;
-</description>
+&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;</description>
     </item>
     
   </channel>

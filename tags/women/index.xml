@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Women on [ Y k N x ]</title>
-    <link>//yknx4.github.io/blog/tags/women/</link>
-    <description>Recent content in Women on [ Y k N x ]</description>
+    <title>[ Y k N x ]</title>
+    <link>//yknx4.github.io/blog/tags/women/index.xml</link>
+    <description>Recent content on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 24 Mar 2016 10:25:45 -0600</lastBuildDate>
     <atom:link href="//yknx4.github.io/blog/tags/women/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -15,9 +14,7 @@
       <pubDate>Thu, 24 Mar 2016 10:25:45 -0600</pubDate>
       
       <guid>//yknx4.github.io/blog/article/women-developers-done-wrong/</guid>
-      <description>
-
-&lt;h1 id=&#34;women-developers-done-wrong&#34;&gt;women developers done wrong&amp;hellip;&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;women-developers-done-wrong&#34;&gt;women developers done wrong&amp;hellip;&lt;/h1&gt;
 
 &lt;p&gt;Don&amp;rsquo;t take me wrong, seeking for more women in the technology world is a legit purpose and I support it.&lt;/p&gt;
 
@@ -25,7 +22,8 @@
 
 &lt;p&gt;But current movements are doing it wrong, sooo wrong.&lt;/p&gt;
 
-&lt;p&gt;All the activities that looks forward to bring more women to the developer side are like this:&lt;/p&gt;
+&lt;p&gt;All the activities that looks forward to bring more women to the developer side are like this:
+&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Come to the Ultrasuperduper development fair only for women&lt;/p&gt;&lt;/li&gt;
@@ -63,8 +61,7 @@
 
 &lt;p&gt;But after all, this is just my opinion. &lt;strong&gt;In a perfect world, nobody would give a f*ck if you&amp;rsquo;re men or women.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;BTW&amp;hellip; I thought about this because recently I saw a lot of interesting development events, but they were limited to women only.&lt;/p&gt;
-</description>
+&lt;p&gt;BTW&amp;hellip; I thought about this because recently I saw a lot of interesting development events, but they were limited to women only.&lt;/p&gt;</description>
     </item>
     
   </channel>
