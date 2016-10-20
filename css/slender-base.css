@@ -69,7 +69,7 @@ header {
 
 h1.brand {
     font-family: "Fjalla One", Helvetica, sans-serif;
-    font-size: 60px;
+    font-size: 68px;
     /*text-transform: uppercase;*/
     letter-spacing: 6px;
     text-align: center;
@@ -181,7 +181,7 @@ article {
 .article-summary {
     margin-top: 22px;
     font-size: 18px;
-    line-height: 1.7em;
+    text-align: justify;
 }
 
 .article-read-more {
@@ -190,7 +190,8 @@ article {
 
 .article-content {
     font-size: 18px;
-    line-height: 1.7em;
+    font-family: Helvetica, sans-serif;
+    line-height: 28px;
 }
 
 .article-content * a {
