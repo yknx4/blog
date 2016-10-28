@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>[ Y k N x ]</title>
-    <link>//yknx4.github.io/blog/categories/personal/index.xml</link>
-    <description>Recent content on [ Y k N x ]</description>
+    <title>Personal on [ Y k N x ]</title>
+    <link>/blog/categories/personal/</link>
+    <description>Recent content in Personal on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <atom:link href="//yknx4.github.io/blog/categories/personal/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Oct 2016 10:01:49 -0500</lastBuildDate>
+    <atom:link href="/blog/categories/personal/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>about me 2.0</title>
-      <link>//yknx4.github.io/blog/article/about-me-2.0/</link>
+      <link>/blog/article/about-me-2.0/</link>
       <pubDate>Thu, 20 Oct 2016 10:01:49 -0500</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/about-me-2.0/</guid>
-      <description>&lt;h3 id=&#34;it-started&#34;&gt;It started&lt;/h3&gt;
+      <guid>/blog/article/about-me-2.0/</guid>
+      <description>
+
+&lt;h3 id=&#34;it-started&#34;&gt;It started&lt;/h3&gt;
 
 &lt;p&gt;Everything started before I understood what was going on. I never fitted in, &lt;strong&gt;something always felt wrong&lt;/strong&gt; and I was sure that there was something missing.&lt;/p&gt;
 
 &lt;p&gt;That started as soon as I started to know myself when I was about 5 years old. Even though I was nerdy/geekish and I always looked forward to video games, computers, etc. When it came to toys and clothes,&lt;em&gt;I always wanted the ones that wasn&amp;rsquo;t supposed to be for boys&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;i-was&#34;&gt;I was&amp;hellip;&lt;/h3&gt;
 
@@ -30,7 +31,7 @@
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Until I couldn&amp;rsquo;t stand it anymore.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;That day, drown in tears. I came out to the first person ever, a really close friend. I told her how I felt and what I wanted. I was scared, I thought she may think I was a weirdo, or a pervert. But she was supportive and for the first time I felt I could express myself the way I really wanted to. The same day I asked her to help me to get my very first clothes. &lt;em&gt;Feminine clothes&lt;/em&gt;.*Clothes that fitted my taste, &lt;strong&gt;that I always wanted to use&lt;/strong&gt;*.&lt;/p&gt;
+&lt;p&gt;That day, drown in tears. I came out to the first person ever, a really close friend. I told her how I felt and what I wanted. I was scared, I thought she may think I was a weirdo, or a pervert. But she was supportive and for the first time I felt I could express myself the way I really wanted to. The same day I asked her to help me to get my very first clothes. &lt;em&gt;Feminine clothes&lt;/em&gt;. &lt;em&gt;Clothes that fitted my taste&lt;/em&gt;, &lt;strong&gt;&lt;em&gt;that I always wanted to use&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;At that point I wasn&amp;rsquo;t sure about me, to be honest I&amp;rsquo;m not even that sure now, but I knew I liked girls (feminine guys worked for me too) and I didn&amp;rsquo;t mind having a kinky friend between my legs. But at the same time &lt;em&gt;I wanted to look like a girl&lt;/em&gt; and behave like one (at least most of the time).&lt;/p&gt;
 
@@ -46,18 +47,21 @@
 
 &lt;p&gt;Feel free to ask me anything.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Ale&lt;/strong&gt; Figueroa (also know as *Jorge* Figueroa)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ale&lt;/strong&gt; Figueroa (also know as &lt;em&gt;Jorge Figueroa&lt;/em&gt;)&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;alenx&lt;/strong&gt; (also know as &lt;em&gt;yknx&lt;/em&gt;)&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;alenx&lt;/strong&gt; (also know as &lt;em&gt;yknx&lt;/em&gt;)&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>hello world!</title>
-      <link>//yknx4.github.io/blog/article/hello-world/</link>
+      <link>/blog/article/hello-world/</link>
       <pubDate>Tue, 08 Mar 2016 09:19:28 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/hello-world/</guid>
-      <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
+      <guid>/blog/article/hello-world/</guid>
+      <description>
+
+&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
 
 &lt;p&gt;So this is the first post, and as every programmer&amp;rsquo;s first time. It has to start with a Hello World!&lt;/p&gt;
 
@@ -65,11 +69,9 @@
 
 &lt;h3 id=&#34;who-am-i&#34;&gt;Who am i?&lt;/h3&gt;
 
-&lt;p&gt;Look the &lt;a href=&#34;//yknx4.github.io/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;//yknx4.github.io/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
+&lt;p&gt;Look the &lt;a href=&#34;/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
 
 &lt;h3 id=&#34;what-is-this-and-what-this-is-not-about&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;This may become a technology blog, this will include for sure some development posts. But after all, this is a Personal blog.&lt;/p&gt;
 
@@ -77,7 +79,8 @@
 
 &lt;p&gt;Feel free to comment everything (as soon as i enable comments), I&amp;rsquo;m open to hear other&amp;rsquo;s opinion.&lt;/p&gt;
 
-&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;</description>
+&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;
+</description>
     </item>
     
   </channel>

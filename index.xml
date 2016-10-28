@@ -2,26 +2,212 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>[ Y k N x ]</title>
-    <link>//yknx4.github.io/blog/index.xml</link>
+    <link>/blog/</link>
     <description>Recent content on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 20 Oct 2016 10:01:49 -0500</lastBuildDate>
-    <atom:link href="//yknx4.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Oct 2016 15:49:02 -0500</lastBuildDate>
+    <atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Database branches with Git Hooks</title>
+      <link>/blog/article/database-branches-with-git-hooks/</link>
+      <pubDate>Fri, 28 Oct 2016 15:49:02 -0500</pubDate>
+      
+      <guid>/blog/article/database-branches-with-git-hooks/</guid>
+      <description>
+
+&lt;h3 id=&#34;the-problem&#34;&gt;The Problem&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;small&gt;You may skip to the solution part at the bottom if you feel brave&lt;/small&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Branching means you diverge from the main line of development and continue to do work without messing with that main line. - &lt;a href=&#34;https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell&#34; title=&#34;3.1 Git Branching - Branches in a Nutshell&#34;&gt;git&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Branches are one of the more powerful features of a VCS, you can work on new features and test changes without touching your master code. But many times those changes implies to do some changes on the database too, and well, your database certainly doesn&amp;rsquo;t live within your repository, so if you want to go back to master or to another branch you need to discard the changes you made to the database.&lt;/p&gt;
+
+&lt;p&gt;For this you have many options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;small&gt;Rails&lt;/small&gt;&lt;/em&gt; Rollback any migration you made&lt;/li&gt;
+&lt;li&gt;Drop your db and create (or restore) a clean one &lt;strong&gt;&lt;em&gt;bye bye changes~&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Backup your current db and create (or restore a clean one) each time you switch branches so you have a standalone copy for each branch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As we can see each of this options has it&amp;rsquo;s drawbacks&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;small&gt;Rails&lt;/small&gt;&lt;/em&gt; When you rollback your migrations you may lose any data that is not properly handled in the rollback, face the fact that some data is not easily recoverable or even worse, you may face the ugly and troublesome &lt;code&gt;ActiveRecord::IrreversibleMigration&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Dropping your db and creating a new one each time you need to switch to another branch can take a lot of time; specially when you have to download and import a production database dump with millions of records (&lt;em&gt;I&amp;rsquo;m working on a project in which this process easily takes about 20~ minutes&lt;/em&gt;), besides that you also loses any changes you did in your branch, changes that may take some extra time to regenerate when you go back to the branch you where working on.&lt;/li&gt;
+&lt;li&gt;This one is the least dangerous for your data, the only drawback I can think of is that you may need quite a lot storage if your database is big. But it ain&amp;rsquo;t such a big trouble.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But the biggest drawbacks of all of this, is that none of them is automatic and you can easily forget to do it once and end up with a messed up &lt;code&gt;schema.rb&lt;/code&gt; in your &lt;code&gt;master&lt;/code&gt; branch. &lt;em&gt;Happened to me so many times before&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Luckily for us, Git gives us a way to do automated tasks whenever we change branches thanks to Git Hooks.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Git has a way to fire off custom scripts when certain important actions occur. There are two groups of these hooks: client-side and server-side. Client-side hooks are triggered by operations such as committing and merging, while server-side hooks run on network operations such as receiving pushed commits. - &lt;a href=&#34;https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks&#34; title=&#34;8.3 Customizing Git - Git Hooks&#34;&gt;git&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;the-solution&#34;&gt;The solution&lt;/h3&gt;
+
+&lt;p&gt;Taking advantage of this hooks I made a &lt;a href=&#34;https://gist.github.com/yknx4/470ec4e1378a48382fdbaf6b5896f1d0&#34;&gt;script&lt;/a&gt; that automatically creates a backup of your currently active database and switch between backups whenever you switch branches.&lt;/p&gt;
+
+&lt;h4 id=&#34;requirements&#34;&gt;Requirements&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PostgreSQL (obviously)&lt;/li&gt;
+&lt;li&gt;Git&lt;/li&gt;
+&lt;li&gt;psql&lt;/li&gt;
+&lt;li&gt;createdb&lt;/li&gt;
+&lt;li&gt;dropbp&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ensure &lt;code&gt;git&lt;/code&gt;, &lt;code&gt;psql&lt;/code&gt;, &lt;code&gt;createdb&lt;/code&gt; and &lt;code&gt;dropdb&lt;/code&gt; are available in your path, also ensure you have a database user without password preferably named &lt;code&gt;postgres&lt;/code&gt;. (This should be the default setup in most of the development environments)&lt;/p&gt;
+
+&lt;h4 id=&#34;installation&#34;&gt;Installation&lt;/h4&gt;
+
+&lt;p&gt;Run the following commands in your projects root path  &lt;br /&gt; &lt;br /&gt;
+1.- Download the script in your project&amp;rsquo;s hooks directory and make it executable&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; $ wget -O .git/hooks/post-checkout https://gist.githubusercontent.com/yknx4/470ec4e1378a48382fdbaf6b5896f1d0/raw/393a1faad80795631e08c994505f0a706404cedb/post-checkout
+&amp;gt; $ chmod +x .git/hooks/post-checkout
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.- Tweak the configuration &lt;br /&gt;
+&lt;code&gt;&amp;gt; $ vim .git/hooks/post-checkout&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+# --- Constants
+SEPARATOR=&amp;quot;/&amp;quot; # This is the separator that is going to be used to
+MAIN_BACKUP=&amp;quot;_backup&amp;quot; # This is the suffix that is going to be used for a main backup
+MAIN_DATABASE=&amp;quot;NAME_OF_YOUR_PROJECT_DB&amp;quot; # Here you should put the name of the db
+DB_USER=&amp;quot;postgres&amp;quot; # In case your user is not postgres you may change it
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.- Thats all! You should have you database branches working now.&lt;/p&gt;
+
+&lt;p&gt;Note: Due to the way branch information is passed to the hook, if you create branch A and then you create another branch B without making changes and then switch back to branch B it will actually not trigger a database backup because the hook will think branch B is branch A.&lt;/p&gt;
+
+&lt;h3 id=&#34;how-it-works&#34;&gt;How it works?&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;some code has been trimmed to slim down the post size&lt;/em&gt;
+In the first section of the script we just get the parameters received by the hook and assign them to variables, also we set the constants we are going to use throughout the script.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+
+# --- Command line
+PREVIOUS_HEAD=&amp;quot;$1&amp;quot;
+NEW_HEAD=&amp;quot;$2&amp;quot;
+IS_BRANCH_CHECKOUT=&amp;quot;$3&amp;quot;
+
+# --- Constants
+SEPARATOR=&amp;quot;/&amp;quot;
+MAIN_BACKUP=&amp;quot;_backup&amp;quot;
+MAIN_DATABASE=&amp;quot;awesome_project_db&amp;quot;
+DB_USER=&amp;quot;postgres&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I defined some functions to make the code more readable. Most of these functions receive the database name as parameter, is important to know that all the names will be trimmed to 63 characters because that is a hard limit imposed by postgres for the database names. Some really long branches names may end up with colliding backup names.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# --- Functions
+database_exists () {
+  # logic to check if a database exists
+}
+
+kill_connections() {
+  # logic to kill al the connections to the active db,
+}
+
+duplicate_database_to() {
+  # logic to duplicate the main database to another one
+}
+
+drop_database() {
+  # logic to drop a database
+}
+
+rename_database() {
+  # logic to rename a database
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This alias makes the best guess about a branch name with the revision SHA&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alias branch_name=&#39;git name-rev --name-only&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I define these variables to have some useful information about git in a readable way&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# --- Variables
+PREVIOUS_BRANCH=`branch_name $PREVIOUS_HEAD`
+NEW_BRANCH=`git branch | grep -e &amp;quot;^*&amp;quot; | cut -d&#39; &#39; -f 2`
+OLD_DATABASE=$MAIN_DATABASE$SEPARATOR$PREVIOUS_BRANCH
+NEW_DATABASE=$MAIN_DATABASE$SEPARATOR$NEW_BRANCH
+MAIN_BACKUP=$MAIN_DATABASE$MAIN_BACKUP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And here it comes the actual magic&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# --- Script
+
+if [ $IS_BRANCH_CHECKOUT -eq 0 ]; then
+  exit 0 # Exit script if it is not a branch change
+fi
+
+echo &amp;quot;Switching from $PREVIOUS_BRANCH to $NEW_BRANCH&amp;quot;
+echo &amp;quot;Killing existing connections to $MAIN_DATABASE&amp;quot;
+kill_connections # We need to kill all the connections or the commands here will fail
+
+if ! database_exists $MAIN_BACKUP; then
+  echo &amp;quot;Creating a main backup, if something goes wrong you can manually restore from this backup.&amp;quot;
+  duplicate_database_to $MAIN_BACKUP # We should always have a master backup
+fi
+
+if [ &amp;quot;$PREVIOUS_BRANCH&amp;quot; == &amp;quot;$NEW_BRANCH&amp;quot; ]; then
+  exit 0 # We didn&#39;t change branch, so lets just exit
+fi
+
+if database_exists $OLD_DATABASE; then
+  # We need to remove old backups if they exists (they shouldn&#39;t most of the times) but
+  # sometime when we didn&#39;t had changes in the branch when we created another one, so a
+  # backup for the parent branch is created instead of one for the new branch, this is
+  # to delete that wrong backup.
+  drop_database $OLD_DATABASE
+fi
+
+if database_exists $NEW_DATABASE; then
+  # When a backup for the new branch already exists
+  # If there is already a backup for the branch we are checking to, lets just rename the active database to create a new backup
+  rename_database $MAIN_DATABASE $OLD_DATABASE
+  # and then lets rename the existing backup to the active database name
+  rename_database $NEW_DATABASE $MAIN_DATABASE
+else
+  # If the branch we are checking to doesn&#39;t have a backup let&#39;s just copy the db to still have an active database
+  duplicate_database_to $OLD_DATABASE
+fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I hope this is as useful as it was to me, switching to a new branch only takes about 15 seconds up from about 2 seconds, but refreshing my database from a production copy takes like 20 minutes so it&amp;rsquo;s manageable.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>about me 2.0</title>
-      <link>//yknx4.github.io/blog/article/about-me-2.0/</link>
+      <link>/blog/article/about-me-2.0/</link>
       <pubDate>Thu, 20 Oct 2016 10:01:49 -0500</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/about-me-2.0/</guid>
-      <description>&lt;h3 id=&#34;it-started&#34;&gt;It started&lt;/h3&gt;
+      <guid>/blog/article/about-me-2.0/</guid>
+      <description>
+
+&lt;h3 id=&#34;it-started&#34;&gt;It started&lt;/h3&gt;
 
 &lt;p&gt;Everything started before I understood what was going on. I never fitted in, &lt;strong&gt;something always felt wrong&lt;/strong&gt; and I was sure that there was something missing.&lt;/p&gt;
 
 &lt;p&gt;That started as soon as I started to know myself when I was about 5 years old. Even though I was nerdy/geekish and I always looked forward to video games, computers, etc. When it came to toys and clothes,&lt;em&gt;I always wanted the ones that wasn&amp;rsquo;t supposed to be for boys&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;i-was&#34;&gt;I was&amp;hellip;&lt;/h3&gt;
 
@@ -31,7 +217,7 @@
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Until I couldn&amp;rsquo;t stand it anymore.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;That day, drown in tears. I came out to the first person ever, a really close friend. I told her how I felt and what I wanted. I was scared, I thought she may think I was a weirdo, or a pervert. But she was supportive and for the first time I felt I could express myself the way I really wanted to. The same day I asked her to help me to get my very first clothes. &lt;em&gt;Feminine clothes&lt;/em&gt;.*Clothes that fitted my taste, &lt;strong&gt;that I always wanted to use&lt;/strong&gt;*.&lt;/p&gt;
+&lt;p&gt;That day, drown in tears. I came out to the first person ever, a really close friend. I told her how I felt and what I wanted. I was scared, I thought she may think I was a weirdo, or a pervert. But she was supportive and for the first time I felt I could express myself the way I really wanted to. The same day I asked her to help me to get my very first clothes. &lt;em&gt;Feminine clothes&lt;/em&gt;. &lt;em&gt;Clothes that fitted my taste&lt;/em&gt;, &lt;strong&gt;&lt;em&gt;that I always wanted to use&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;At that point I wasn&amp;rsquo;t sure about me, to be honest I&amp;rsquo;m not even that sure now, but I knew I liked girls (feminine guys worked for me too) and I didn&amp;rsquo;t mind having a kinky friend between my legs. But at the same time &lt;em&gt;I wanted to look like a girl&lt;/em&gt; and behave like one (at least most of the time).&lt;/p&gt;
 
@@ -47,18 +233,21 @@
 
 &lt;p&gt;Feel free to ask me anything.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Ale&lt;/strong&gt; Figueroa (also know as *Jorge* Figueroa)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ale&lt;/strong&gt; Figueroa (also know as &lt;em&gt;Jorge Figueroa&lt;/em&gt;)&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;alenx&lt;/strong&gt; (also know as &lt;em&gt;yknx&lt;/em&gt;)&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;alenx&lt;/strong&gt; (also know as &lt;em&gt;yknx&lt;/em&gt;)&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>women developers done wrong</title>
-      <link>//yknx4.github.io/blog/article/women-developers-done-wrong/</link>
+      <link>/blog/article/women-developers-done-wrong/</link>
       <pubDate>Thu, 24 Mar 2016 10:25:45 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/women-developers-done-wrong/</guid>
-      <description>&lt;h1 id=&#34;women-developers-done-wrong&#34;&gt;women developers done wrong&amp;hellip;&lt;/h1&gt;
+      <guid>/blog/article/women-developers-done-wrong/</guid>
+      <description>
+
+&lt;h1 id=&#34;women-developers-done-wrong&#34;&gt;women developers done wrong&amp;hellip;&lt;/h1&gt;
 
 &lt;p&gt;Don&amp;rsquo;t take me wrong, seeking for more women in the technology world is a legit purpose and I support it.&lt;/p&gt;
 
@@ -66,8 +255,7 @@
 
 &lt;p&gt;But current movements are doing it wrong, sooo wrong.&lt;/p&gt;
 
-&lt;p&gt;All the activities that looks forward to bring more women to the developer side are like this:
-&lt;/p&gt;
+&lt;p&gt;All the activities that looks forward to bring more women to the developer side are like this:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;Come to the Ultrasuperduper development fair only for women&lt;/p&gt;&lt;/li&gt;
@@ -105,20 +293,19 @@
 
 &lt;p&gt;But after all, this is just my opinion. &lt;strong&gt;In a perfect world, nobody would give a f*ck if you&amp;rsquo;re men or women.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;BTW&amp;hellip; I thought about this because recently I saw a lot of interesting development events, but they were limited to women only.&lt;/p&gt;</description>
+&lt;p&gt;BTW&amp;hellip; I thought about this because recently I saw a lot of interesting development events, but they were limited to women only.&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>There&#39;s no gender violence at all</title>
-      <link>//yknx4.github.io/blog/article/theres-no-gender-violence-at-all/</link>
+      <link>/blog/article/theres-no-gender-violence-at-all/</link>
       <pubDate>Tue, 08 Mar 2016 17:45:50 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/theres-no-gender-violence-at-all/</guid>
+      <guid>/blog/article/theres-no-gender-violence-at-all/</guid>
       <description>&lt;p&gt;As some of you may know today is the Women&amp;rsquo;s Day and &lt;strong&gt;this ain&amp;rsquo;t a day to celebrate but to commemorate all those women that have fought for women&amp;rsquo;s rights&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;And even though I agree with that, I still feel uneasy due to the fact that &lt;strong&gt;gender violence against men is usually not addressed&lt;/strong&gt;, at least not the same way and things get worse when you talk about non-traditional genders. And so sometimes I feel these kind of commemoration isn&amp;rsquo;t fair.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;Then in all the flow of posts about the international women&amp;rsquo;s day I saw this pic.&lt;/p&gt;
 
@@ -169,16 +356,19 @@ And then everything clicked, I couldn&amp;rsquo;t agree more with this.&lt;/p&gt
 
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;If we get rid of Genders, we get rid of all gender issues. Including violence&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;</description>
+&lt;/blockquote&gt;
+</description>
     </item>
     
     <item>
       <title>hello world!</title>
-      <link>//yknx4.github.io/blog/article/hello-world/</link>
+      <link>/blog/article/hello-world/</link>
       <pubDate>Tue, 08 Mar 2016 09:19:28 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/article/hello-world/</guid>
-      <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
+      <guid>/blog/article/hello-world/</guid>
+      <description>
+
+&lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
 
 &lt;p&gt;So this is the first post, and as every programmer&amp;rsquo;s first time. It has to start with a Hello World!&lt;/p&gt;
 
@@ -186,11 +376,9 @@ And then everything clicked, I couldn&amp;rsquo;t agree more with this.&lt;/p&gt
 
 &lt;h3 id=&#34;who-am-i&#34;&gt;Who am i?&lt;/h3&gt;
 
-&lt;p&gt;Look the &lt;a href=&#34;//yknx4.github.io/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;//yknx4.github.io/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
+&lt;p&gt;Look the &lt;a href=&#34;/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
 
 &lt;h3 id=&#34;what-is-this-and-what-this-is-not-about&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
-
-&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;This may become a technology blog, this will include for sure some development posts. But after all, this is a Personal blog.&lt;/p&gt;
 
@@ -198,15 +386,16 @@ And then everything clicked, I couldn&amp;rsquo;t agree more with this.&lt;/p&gt
 
 &lt;p&gt;Feel free to comment everything (as soon as i enable comments), I&amp;rsquo;m open to hear other&amp;rsquo;s opinion.&lt;/p&gt;
 
-&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;</description>
+&lt;p&gt;And well&amp;hellip;. welcome to this place.&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>about</title>
-      <link>//yknx4.github.io/blog/about/</link>
+      <link>/blog/about/</link>
       <pubDate>Sun, 06 Mar 2016 17:34:05 -0600</pubDate>
       
-      <guid>//yknx4.github.io/blog/about/</guid>
+      <guid>/blog/about/</guid>
       <description>
 
 &lt;h1 id=&#34;personal-background&#34;&gt;Personal Background&lt;/h1&gt;
@@ -215,7 +404,7 @@ And then everything clicked, I couldn&amp;rsquo;t agree more with this.&lt;/p&gt
 
 &lt;h4 id=&#34;me&#34;&gt;me&lt;/h4&gt;
 
-&lt;p&gt;Well, I&amp;rsquo;m Jorge Alejandro Figueroa Perez, sometimes just &lt;strong&gt;Jorge&lt;/strong&gt;, sometimes just &lt;strong&gt;Alejandro&lt;/strong&gt;, most times just &lt;a href=&#34;//yknx4.github.io/blog/article/about-me-2.0/&#34;&gt;&lt;strong&gt;Ale&lt;/strong&gt;&lt;/a&gt; and in the Internet most of the times I&amp;rsquo;m &lt;strong&gt;Yknx&lt;/strong&gt; (Except on some sites where some asian dude got the nickname first).&lt;/p&gt;
+&lt;p&gt;Well, I&amp;rsquo;m Jorge Alejandro Figueroa Perez, sometimes just &lt;strong&gt;Jorge&lt;/strong&gt;, sometimes just &lt;strong&gt;Alejandro&lt;/strong&gt;, most times just &lt;a href=&#34;/blog/article/about-me-2.0/&#34;&gt;&lt;strong&gt;Ale&lt;/strong&gt;&lt;/a&gt; and in the Internet most of the times I&amp;rsquo;m &lt;strong&gt;Yknx&lt;/strong&gt; (Except on some sites where some asian dude got the nickname first).&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;m a supporter of &lt;strong&gt;Social Freedom&lt;/strong&gt;, &lt;strong&gt;Internet Rights&lt;/strong&gt; and the &lt;strong&gt;LGBT&lt;/strong&gt; Community. I have the opinion that &lt;em&gt;&lt;strong&gt;everyone can and shall live however the f*ck they want&lt;/strong&gt;&lt;/em&gt; as long as they don&amp;rsquo;t harm anyone else&amp;rsquo;s freedom.&lt;/p&gt;
 
@@ -223,7 +412,7 @@ And then everything clicked, I couldn&amp;rsquo;t agree more with this.&lt;/p&gt
 
 &lt;p&gt;I think all those rights should be also preserved and enforced in all the modern environments that are constantly surging in the Internet. (Yep, This means that you should also be able to do whatever you want on the Internet)&lt;/p&gt;
 
-&lt;p&gt;And I&amp;rsquo;m &lt;em&gt;against Gender Roles&lt;/em&gt; (a byproduct of sexism), I don&amp;rsquo;t think a person can be defined by what society tells them they are supposed to be just because the person was born with or without something between the legs. I consider myself &lt;a href=&#34;//yknx4.github.io/blog/article/about-me-2.0/&#34;&gt;&lt;strong&gt;transgender&lt;/strong&gt;&lt;/a&gt; or even better &lt;del&gt;Allgendersatthesametime-ish&lt;/del&gt; &lt;strong&gt;bigender&lt;/strong&gt;, so feel free to address me however you feel you should.&lt;/p&gt;
+&lt;p&gt;And I&amp;rsquo;m &lt;em&gt;against Gender Roles&lt;/em&gt; (a byproduct of sexism), I don&amp;rsquo;t think a person can be defined by what society tells them they are supposed to be just because the person was born with or without something between the legs. I consider myself &lt;a href=&#34;/blog/article/about-me-2.0/&#34;&gt;&lt;strong&gt;transgender&lt;/strong&gt;&lt;/a&gt; or even better &lt;del&gt;Allgendersatthesametime-ish&lt;/del&gt; &lt;strong&gt;bigender&lt;/strong&gt;, so feel free to address me however you feel you should.&lt;/p&gt;
 
 &lt;p&gt;I live in this &lt;em&gt;unique&lt;/em&gt; place called &lt;strong&gt;Colima&lt;/strong&gt; in this &lt;em&gt;interesting&lt;/em&gt;
 country called &lt;strong&gt;Mexico&lt;/strong&gt;, and I have been living here for about all my life. [Except for the 6 months I gladly had the opportunity to live in &lt;strong&gt;South Korea&lt;/strong&gt;]&lt;/p&gt;

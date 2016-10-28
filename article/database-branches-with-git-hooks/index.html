@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Database branches with Git Hooks &middot; [ Y k N x ] ">
+  <meta property="og:site_name" content="[ Y k N x ]"/>
+  <meta property="og:description" content="Yknx - Jorge Figueroa. Personal blog about Tech, Software and Life">
+  <meta property="og:url" content="/blog/article/database-branches-with-git-hooks/" />
+  <meta property="og:locale" content="en-US">
+  <meta name="author" content="Jorge Alejandro Figueroa Pérez">
+  <meta name="description" content="Yknx - Jorge Figueroa. Personal blog about Tech, Software and Life">
+  <meta name="keywords" content="shell, PostgreSQL, branch, automatic backup">
+  <meta property="fb:admins" content="1258003074"/>
+  <meta property="fb:app_id" content="1672123799707864" />
+  <meta name="generator" content="Hugo 0.16" />
+  <link rel="icon" href="/blog/blog/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/blog/blog/css/slender-base.css">
+  <link rel="stylesheet" href="/blog/blog/css/slender-color-schemes.css">
+  <link rel="stylesheet" href="/blog/blog/css/font-awesome-4.5.0.min.css">
+  <link rel="stylesheet" href="/blog/blog/css/highlight-9.0.0-default.min.css">
+  <link rel="stylesheet" href="/blog/blog/css/custom.css">
+  <title>
+    
+    Database branches with Git Hooks &middot; [ Y k N x ]
+    
+  </title>
+</head>
+<body class="color-scheme-white">
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1672123799707864',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <div class="container">
+    <header>
+      <nav>
+        <ul><li><a href="/blog/blog">home</a></li><li><a href="/blog/blog/categories/">categories</a></li><li><a href="/blog/blog/tags/">tags</a></li><li><a href="/blog/blog/about/">about</a></li><li><a href="https://yknx4.github.io">pro</a></li></ul>
+      </nav>
+      
+      <h1 class="title">Database branches with Git Hooks</h1>
+      <aside>
+        <p>on <strong>Fri, Oct 28, 2016</strong></p>
+      </aside>
+      
+    </header>
+
+<article class="article-content">
+  
+
+<h3 id="the-problem">The Problem</h3>
+
+<p><em><small>You may skip to the solution part at the bottom if you feel brave</small></em></p>
+
+<blockquote>
+<p>Branching means you diverge from the main line of development and continue to do work without messing with that main line. - <a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell" title="3.1 Git Branching - Branches in a Nutshell">git</a></p>
+</blockquote>
+
+<p>Branches are one of the more powerful features of a VCS, you can work on new features and test changes without touching your master code. But many times those changes implies to do some changes on the database too, and well, your database certainly doesn&rsquo;t live within your repository, so if you want to go back to master or to another branch you need to discard the changes you made to the database.</p>
+
+<p>For this you have many options:</p>
+
+<ul>
+<li><em><small>Rails</small></em> Rollback any migration you made</li>
+<li>Drop your db and create (or restore) a clean one <strong><em>bye bye changes~</em></strong></li>
+<li>Backup your current db and create (or restore a clean one) each time you switch branches so you have a standalone copy for each branch</li>
+</ul>
+
+<p>As we can see each of this options has it&rsquo;s drawbacks</p>
+
+<ul>
+<li><em><small>Rails</small></em> When you rollback your migrations you may lose any data that is not properly handled in the rollback, face the fact that some data is not easily recoverable or even worse, you may face the ugly and troublesome <code>ActiveRecord::IrreversibleMigration</code>.</li>
+<li>Dropping your db and creating a new one each time you need to switch to another branch can take a lot of time; specially when you have to download and import a production database dump with millions of records (<em>I&rsquo;m working on a project in which this process easily takes about 20~ minutes</em>), besides that you also loses any changes you did in your branch, changes that may take some extra time to regenerate when you go back to the branch you where working on.</li>
+<li>This one is the least dangerous for your data, the only drawback I can think of is that you may need quite a lot storage if your database is big. But it ain&rsquo;t such a big trouble.</li>
+</ul>
+
+<p>But the biggest drawbacks of all of this, is that none of them is automatic and you can easily forget to do it once and end up with a messed up <code>schema.rb</code> in your <code>master</code> branch. <em>Happened to me so many times before</em>.</p>
+
+<p>Luckily for us, Git gives us a way to do automated tasks whenever we change branches thanks to Git Hooks.</p>
+
+<blockquote>
+<p>Git has a way to fire off custom scripts when certain important actions occur. There are two groups of these hooks: client-side and server-side. Client-side hooks are triggered by operations such as committing and merging, while server-side hooks run on network operations such as receiving pushed commits. - <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks" title="8.3 Customizing Git - Git Hooks">git</a></p>
+</blockquote>
+
+<h3 id="the-solution">The solution</h3>
+
+<p>Taking advantage of this hooks I made a <a href="https://gist.github.com/yknx4/470ec4e1378a48382fdbaf6b5896f1d0">script</a> that automatically creates a backup of your currently active database and switch between backups whenever you switch branches.</p>
+
+<h4 id="requirements">Requirements</h4>
+
+<ul>
+<li>PostgreSQL (obviously)</li>
+<li>Git</li>
+<li>psql</li>
+<li>createdb</li>
+<li>dropbp</li>
+</ul>
+
+<p>Ensure <code>git</code>, <code>psql</code>, <code>createdb</code> and <code>dropdb</code> are available in your path, also ensure you have a database user without password preferably named <code>postgres</code>. (This should be the default setup in most of the development environments)</p>
+
+<h4 id="installation">Installation</h4>
+
+<p>Run the following commands in your projects root path  <br /> <br />
+1.- Download the script in your project&rsquo;s hooks directory and make it executable</p>
+
+<pre><code>&gt; $ wget -O .git/hooks/post-checkout https://gist.githubusercontent.com/yknx4/470ec4e1378a48382fdbaf6b5896f1d0/raw/393a1faad80795631e08c994505f0a706404cedb/post-checkout
+&gt; $ chmod +x .git/hooks/post-checkout
+</code></pre>
+
+<p>2.- Tweak the configuration <br />
+<code>&gt; $ vim .git/hooks/post-checkout</code></p>
+
+<pre><code>...
+# --- Constants
+SEPARATOR=&quot;/&quot; # This is the separator that is going to be used to
+MAIN_BACKUP=&quot;_backup&quot; # This is the suffix that is going to be used for a main backup
+MAIN_DATABASE=&quot;NAME_OF_YOUR_PROJECT_DB&quot; # Here you should put the name of the db
+DB_USER=&quot;postgres&quot; # In case your user is not postgres you may change it
+...
+</code></pre>
+
+<p>3.- Thats all! You should have you database branches working now.</p>
+
+<p>Note: Due to the way branch information is passed to the hook, if you create branch A and then you create another branch B without making changes and then switch back to branch B it will actually not trigger a database backup because the hook will think branch B is branch A.</p>
+
+<h3 id="how-it-works">How it works?</h3>
+
+<p><em>some code has been trimmed to slim down the post size</em>
+In the first section of the script we just get the parameters received by the hook and assign them to variables, also we set the constants we are going to use throughout the script.</p>
+
+<pre><code>#!/bin/sh
+
+# --- Command line
+PREVIOUS_HEAD=&quot;$1&quot;
+NEW_HEAD=&quot;$2&quot;
+IS_BRANCH_CHECKOUT=&quot;$3&quot;
+
+# --- Constants
+SEPARATOR=&quot;/&quot;
+MAIN_BACKUP=&quot;_backup&quot;
+MAIN_DATABASE=&quot;awesome_project_db&quot;
+DB_USER=&quot;postgres&quot;
+</code></pre>
+
+<p>I defined some functions to make the code more readable. Most of these functions receive the database name as parameter, is important to know that all the names will be trimmed to 63 characters because that is a hard limit imposed by postgres for the database names. Some really long branches names may end up with colliding backup names.</p>
+
+<pre><code># --- Functions
+database_exists () {
+  # logic to check if a database exists
+}
+
+kill_connections() {
+  # logic to kill al the connections to the active db,
+}
+
+duplicate_database_to() {
+  # logic to duplicate the main database to another one
+}
+
+drop_database() {
+  # logic to drop a database
+}
+
+rename_database() {
+  # logic to rename a database
+}
+</code></pre>
+
+<p>This alias makes the best guess about a branch name with the revision SHA</p>
+
+<pre><code>alias branch_name='git name-rev --name-only'
+</code></pre>
+
+<p>I define these variables to have some useful information about git in a readable way</p>
+
+<pre><code># --- Variables
+PREVIOUS_BRANCH=`branch_name $PREVIOUS_HEAD`
+NEW_BRANCH=`git branch | grep -e &quot;^*&quot; | cut -d' ' -f 2`
+OLD_DATABASE=$MAIN_DATABASE$SEPARATOR$PREVIOUS_BRANCH
+NEW_DATABASE=$MAIN_DATABASE$SEPARATOR$NEW_BRANCH
+MAIN_BACKUP=$MAIN_DATABASE$MAIN_BACKUP
+</code></pre>
+
+<p>And here it comes the actual magic</p>
+
+<pre><code># --- Script
+
+if [ $IS_BRANCH_CHECKOUT -eq 0 ]; then
+  exit 0 # Exit script if it is not a branch change
+fi
+
+echo &quot;Switching from $PREVIOUS_BRANCH to $NEW_BRANCH&quot;
+echo &quot;Killing existing connections to $MAIN_DATABASE&quot;
+kill_connections # We need to kill all the connections or the commands here will fail
+
+if ! database_exists $MAIN_BACKUP; then
+  echo &quot;Creating a main backup, if something goes wrong you can manually restore from this backup.&quot;
+  duplicate_database_to $MAIN_BACKUP # We should always have a master backup
+fi
+
+if [ &quot;$PREVIOUS_BRANCH&quot; == &quot;$NEW_BRANCH&quot; ]; then
+  exit 0 # We didn't change branch, so lets just exit
+fi
+
+if database_exists $OLD_DATABASE; then
+  # We need to remove old backups if they exists (they shouldn't most of the times) but
+  # sometime when we didn't had changes in the branch when we created another one, so a
+  # backup for the parent branch is created instead of one for the new branch, this is
+  # to delete that wrong backup.
+  drop_database $OLD_DATABASE
+fi
+
+if database_exists $NEW_DATABASE; then
+  # When a backup for the new branch already exists
+  # If there is already a backup for the branch we are checking to, lets just rename the active database to create a new backup
+  rename_database $MAIN_DATABASE $OLD_DATABASE
+  # and then lets rename the existing backup to the active database name
+  rename_database $NEW_DATABASE $MAIN_DATABASE
+else
+  # If the branch we are checking to doesn't have a backup let's just copy the db to still have an active database
+  duplicate_database_to $OLD_DATABASE
+fi
+</code></pre>
+
+<p>I hope this is as useful as it was to me, switching to a new branch only takes about 15 seconds up from about 2 seconds, but refreshing my database from a production copy takes like 20 minutes so it&rsquo;s manageable.</p>
+
+  <section class="article-social">
+    <section class ="article-social-info">
+      <div class="fb-like pull-right" data-href='http:/blog/article/database-branches-with-git-hooks/' data-layout="button_count" data-action="like" data-show-faces="false" data-share="true">
+      </div>
+      <div class="pull-left">
+        
+        <span class="f-post-tags"><i class="fa fa-tag"></i>
+          development, PostgreSQL, shell, git
+        </span><br>
+        
+        <span class="f-post-categories"><i class="fa fa-folder-o"></i>
+          development
+        </span>
+      </div>
+    </section>
+    <div class="fb-comments" data-href='http:/blog/article/database-branches-with-git-hooks/' data-width="100%"  data-numposts="5">
+    </div>
+  </section>
+</article>
+        </div>
+        <footer>
+            <p>Copyright 2015 &copy; J Alejandro Figueroa</p>
+        </footer>
+        <script src="/blog/blog/js/title.js"></script>
+        <script src="/blog/blog/js/highlight-9.0.0.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-74724455-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        
+    </body>
+</html>
+
