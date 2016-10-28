@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Postgresql on [ Y k N x ]</title>
-    <link>blog/tags/postgresql/</link>
+    <link>//yknx4.github.io/blog/tags/postgresql/</link>
     <description>Recent content in Postgresql on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 28 Oct 2016 15:49:02 -0500</lastBuildDate>
-    <atom:link href="blog/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//yknx4.github.io/blog/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Database branches with Git Hooks</title>
-      <link>/blog/article/database-branches-with-git-hooks/</link>
+      <link>//yknx4.github.io/blog/article/database-branches-with-git-hooks/</link>
       <pubDate>Fri, 28 Oct 2016 15:49:02 -0500</pubDate>
       
-      <guid>/blog/article/database-branches-with-git-hooks/</guid>
+      <guid>//yknx4.github.io/blog/article/database-branches-with-git-hooks/</guid>
       <description>
 
 &lt;h3 id=&#34;the-problem&#34;&gt;The Problem&lt;/h3&gt;

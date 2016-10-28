@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Me on [ Y k N x ]</title>
-    <link>blog/tags/me/</link>
+    <link>//yknx4.github.io/blog/tags/me/</link>
     <description>Recent content in Me on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Thu, 20 Oct 2016 10:01:49 -0500</lastBuildDate>
-    <atom:link href="blog/tags/me/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//yknx4.github.io/blog/tags/me/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>about me 2.0</title>
-      <link>/blog/article/about-me-2.0/</link>
+      <link>//yknx4.github.io/blog/article/about-me-2.0/</link>
       <pubDate>Thu, 20 Oct 2016 10:01:49 -0500</pubDate>
       
-      <guid>/blog/article/about-me-2.0/</guid>
+      <guid>//yknx4.github.io/blog/article/about-me-2.0/</guid>
       <description>
 
 &lt;h3 id=&#34;it-started&#34;&gt;It started&lt;/h3&gt;
@@ -55,10 +55,10 @@
     
     <item>
       <title>hello world!</title>
-      <link>/blog/article/hello-world/</link>
+      <link>//yknx4.github.io/blog/article/hello-world/</link>
       <pubDate>Tue, 08 Mar 2016 09:19:28 -0600</pubDate>
       
-      <guid>/blog/article/hello-world/</guid>
+      <guid>//yknx4.github.io/blog/article/hello-world/</guid>
       <description>
 
 &lt;h3 id=&#34;about-this-blog&#34;&gt;About this blog&lt;/h3&gt;
@@ -69,7 +69,7 @@
 
 &lt;h3 id=&#34;who-am-i&#34;&gt;Who am i?&lt;/h3&gt;
 
-&lt;p&gt;Look the &lt;a href=&#34;blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
+&lt;p&gt;Look the &lt;a href=&#34;//yknx4.github.io/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;//yknx4.github.io/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
 
 &lt;h3 id=&#34;what-is-this-and-what-this-is-not-about&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
 
