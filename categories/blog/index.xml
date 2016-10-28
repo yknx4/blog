@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on [ Y k N x ]</title>
-    <link>/blog/categories/blog/</link>
+    <link>blog/categories/blog/</link>
     <description>Recent content in Blog on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Thu, 20 Oct 2016 10:01:49 -0500</lastBuildDate>
-    <atom:link href="/blog/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="blog/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>about me 2.0</title>
@@ -69,7 +69,7 @@
 
 &lt;h3 id=&#34;who-am-i&#34;&gt;Who am i?&lt;/h3&gt;
 
-&lt;p&gt;Look the &lt;a href=&#34;/blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;/blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
+&lt;p&gt;Look the &lt;a href=&#34;blog/about/&#34;&gt;about&lt;/a&gt; section and &lt;a href=&#34;blog/article/about-me-2.0/&#34;&gt;this&lt;/a&gt; post.&lt;/p&gt;
 
 &lt;h3 id=&#34;what-is-this-and-what-this-is-not-about&#34;&gt;What is this and what this is &lt;em&gt;NOT&lt;/em&gt; about&lt;/h3&gt;
 

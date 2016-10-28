@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Social Movement on [ Y k N x ]</title>
-    <link>/blog/tags/social-movement/</link>
+    <link>blog/tags/social-movement/</link>
     <description>Recent content in Social Movement on [ Y k N x ]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Thu, 24 Mar 2016 10:25:45 -0600</lastBuildDate>
-    <atom:link href="/blog/tags/social-movement/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="blog/tags/social-movement/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>women developers done wrong</title>
